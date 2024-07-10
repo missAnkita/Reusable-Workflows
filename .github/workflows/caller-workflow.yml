@@ -9,7 +9,7 @@ on:
 jobs:
   build-ubuntu:
     name: Build app on Ubuntu
-    uses: octodemo/colind-reusable-workflows/.github/workflows/dotnetbuild.yml@main
+    uses: missAnkita/Reusable-Workflows/blob/main/.github/workflows/dotnet-reusable-workflow.yml@main
     with:
       runs-on: ubuntu-latest
       run-tests: false
