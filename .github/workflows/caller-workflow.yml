@@ -1,0 +1,18 @@
+
+name: Build application
+
+on:
+  push:
+    branches:
+    - main
+
+jobs:
+  build-ubuntu:
+    name: Build app on Ubuntu
+    uses: octodemo/colind-reusable-workflows/.github/workflows/dotnetbuild.yml@main
+    with:
+      runs-on: ubuntu-latest
+      run-tests: false
+      project-folder: src
+      artifact-name: drop-ubuntu
+
