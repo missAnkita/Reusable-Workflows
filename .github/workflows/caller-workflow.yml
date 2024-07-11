@@ -13,6 +13,7 @@ jobs:
     with:
       runs-on: ubuntu-latest
       run-tests: false
-      project-folder: src
+      #project-folder: src
+      project-folder: .
       artifact-name: drop-ubuntu
 
