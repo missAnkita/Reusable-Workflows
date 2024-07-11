@@ -56,6 +56,9 @@ jobs:
         
       - name: Build
         run: dotnet build --configuration Release --no-restore
+
+      - name: Run Application
+        run: dotnet run --no-build --project Reusable-Workflows/dotnetapp.csproj
         
       - name: Test
         if: ${{ inputs.run-tests }}
