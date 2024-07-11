@@ -12,7 +12,7 @@ on:
       dotnet-version:
         description: Version of dotnet to use
         type: string
-        default: 5.0.x
+        default: 8.0.x
       
       project-folder:
         description: The folder containing the project to build
