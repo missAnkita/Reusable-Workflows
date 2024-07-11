@@ -58,7 +58,7 @@ jobs:
         run: dotnet build --configuration Release --no-restore
         
       - name: Test
-        if: ${{ inputs.test }}
+        if: ${{ inputs.run-tests }}
         #run: dotnet test --no-build --verbosity normal
         run: dotnet test --no-restore --verbosity normal
         
