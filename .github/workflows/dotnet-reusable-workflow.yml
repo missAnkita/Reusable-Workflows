@@ -57,8 +57,8 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      - name: Run Application
-        run: dotnet run --no-build --project dotnetapp.csproj
+     # - name: Run Application
+     #   run: dotnet run --no-build --project dotnetapp.csproj
         
       - name: Test
         if: ${{ inputs.run-tests }}
