@@ -59,14 +59,14 @@ jobs:
         
       - name: Build
         run: dotnet build --configuration Release --no-restore
-
-     # - name: Run Application
-     #   run: dotnet run --no-build --project dotnetapp.csproj
         
       - name: Test
         if: ${{ inputs.run-tests }}
         #run: dotnet test --no-build --verbosity normal
         run: dotnet test --no-restore --verbosity normal
+
+      - name: Run Application
+        run: dotnet run --project dotnetapp.csproj
         
       - name: Publish
         run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
