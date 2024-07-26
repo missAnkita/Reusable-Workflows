@@ -1,0 +1,18 @@
+
+name: Caller WF For .Net App
+
+on:
+  workflow_dispatch:
+
+jobs:
+  caller-workflow:
+      name: Build app on Ubuntu
+      uses: missAnkita/Reusable-Workflows/.github/workflows/app-main.yml@main
+      with:
+        runs-on: ubuntu-latest
+        run-tests: false
+        project-folder: .
+        artifact-name: drop-ubuntu
+
+    
+            
