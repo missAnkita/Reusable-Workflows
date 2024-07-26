@@ -4,6 +4,6 @@ runs:
   
   steps:
       - name: Test
-        if: ${{ inputs.run-tests }}
         shell: bash
+        if: ${{ inputs.run-tests }}
         run: dotnet test --no-restore --verbosity normal
