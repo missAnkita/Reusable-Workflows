@@ -9,12 +9,16 @@ on:
 
 jobs:
   build-ubuntu:
-    name: Build app on Ubuntu
-    uses: missAnkita/Reusable-Workflows/.github/workflows/dotnet-reusable-workflow.yml@main
-    with:
-      runs-on: ubuntu-latest
-      run-tests: false
-      #project-folder: src
-      project-folder: .
-      artifact-name: drop-ubuntu
+    - name: Build app on Ubuntu
+      uses: missAnkita/Reusable-Workflows/.github/workflows/dotnet-reusable-workflow.yml@main
+      with:
+        runs-on: ubuntu-latest
+        run-tests: false
+        #project-folder: src
+        project-folder: .
+        artifact-name: drop-ubuntu
+
+    - name: Hello missAnkita
+      uses: missAnkita/reusable-actions@v1
+            
 
