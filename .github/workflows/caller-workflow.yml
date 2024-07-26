@@ -1,5 +1,5 @@
 
-name: Build application
+name: Caller Workflow For .Net App
 
 on:
   workflow_dispatch:
