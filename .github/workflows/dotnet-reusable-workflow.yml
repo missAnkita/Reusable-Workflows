@@ -46,8 +46,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Hello missAnkita
-        uses: missAnkita/reusable-actions@v1
+      - name: Hello World Action Ankita
+        uses: missAnkita/reusable-actions@v2     
           
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
