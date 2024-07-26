@@ -44,14 +44,17 @@ jobs:
         working-directory: ${{ inputs.project-folder }}
     
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - uses: ./.github/actions/Build
+      - name: Build Project
+        uses: ./.github/actions/Build
    
-      - uses: ./.github/actions/test
+      - name: Test Project
+        uses: ./.github/actions/test
       
       - name: Run Application
-        run: dotnet run --project dotnetapp.csproj
+        uses: ./.github/actions/run
         
       - name: Publish
         run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
