@@ -1,16 +1,3 @@
-name: 'Action for .NET app Build'
-description: 'Build App'
-inputs:
-      dotnet-version:
-        description: Version of dotnet to use
-        type: string
-        default: 8.0.x
-      
-      run-tests:
-        description: Run tests
-        type: boolean
-        default: true
-
 runs:
   using: "composite"
 
