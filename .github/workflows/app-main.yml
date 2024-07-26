@@ -47,12 +47,9 @@ jobs:
       - uses: actions/checkout@v2
 
       - uses: ./.github/actions/Build
-        
-      - name: Test
-        if: ${{ inputs.run-tests }}
-        #run: dotnet test --no-build --verbosity normal
-        run: dotnet test --no-restore --verbosity normal
-
+   
+      - uses: ./.github/actions/test
+      
       - name: Run Application
         run: dotnet run --project dotnetapp.csproj
         
