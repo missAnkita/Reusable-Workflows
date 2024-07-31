@@ -47,6 +47,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Lint Code Base
+        uses: github/super-linter@v4
+        
       - name: Build Project
         uses: ./.github/actions/Build
    
