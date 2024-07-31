@@ -1,5 +1,5 @@
 
-name: Build dotnet application
+name: RU WF for .NET
 
 on:
   workflow_call:
@@ -47,8 +47,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Lint Code Base
-        uses: github/super-linter@v4
+      - name: Super Linter Code Base
+        uses: super-linter/super-linter@v6.7.0
         
       - name: Build Project
         uses: ./.github/actions/Build
