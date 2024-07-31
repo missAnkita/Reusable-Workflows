@@ -10,4 +10,4 @@ runs:
     - name: Super Linter Code base run
       uses: super-linter/super-linter@v6.7.0
       env:
-          GH_TOKEN: ${{ inputs.token }}
+          GITHUB_TOKEN: ${{ inputs.token }}
