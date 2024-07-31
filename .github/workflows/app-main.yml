@@ -50,7 +50,7 @@ jobs:
       - name: Super Linter Code Base
         uses: ./.github/actions/Super-Linter
         with:
-          secrets: inherit
+          token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build Project
         uses: ./.github/actions/Build
