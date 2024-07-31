@@ -49,6 +49,8 @@ jobs:
 
       - name: Super Linter Code Base
         uses: super-linter/super-linter@v6.7.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Build Project
         uses: ./.github/actions/Build
