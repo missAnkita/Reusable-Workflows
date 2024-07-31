@@ -49,7 +49,9 @@ jobs:
 
       - name: Super Linter Code Base
         uses: ./.github/actions/Super-Linter
-        
+        with:
+          secrets: inherit
+          
       - name: Build Project
         uses: ./.github/actions/Build
    
