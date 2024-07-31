@@ -1,4 +1,8 @@
-
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
+    
 runs:
   using: "composite"
 
@@ -6,4 +10,4 @@ runs:
     - name: Super Linter Code base run
       uses: super-linter/super-linter@v6.7.0
       env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ inputs.token }}
