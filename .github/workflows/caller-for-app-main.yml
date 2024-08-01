@@ -6,7 +6,7 @@ on:
 
 jobs:
   caller-workflow:
-      name: Build app on Ubuntu
+      name: Build .Net app
       uses: missAnkita/Reusable-Workflows/.github/workflows/app-main.yml@main
       with:
         runs-on: ubuntu-latest
