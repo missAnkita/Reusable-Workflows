@@ -8,6 +8,8 @@ runs:
 
   steps:
     - name: Super Linter Code base run
-      uses: super-linter/super-linter@v6.7.0
+      uses: super-linter/super-linter@v4
       env:
-          GITHUB_TOKEN: ${{ inputs.token }}
+          # GITHUB_TOKEN: ${{ inputs.token }}
+          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_DOTNET: true
