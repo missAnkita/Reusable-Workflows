@@ -60,6 +60,8 @@ jobs:
       
       - name: Run Application
         uses: missAnkita/Reusable-Workflows/.github/actions/run@main
+        with: 
+         working-directory: ${{ inputs.project-folder}}
         
       - name: Publish
         run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
