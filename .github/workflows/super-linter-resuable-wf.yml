@@ -19,6 +19,11 @@ on:
         type: string
         default: .
         
+      working-directory:
+        description: 'working directory for App code'
+        required: true
+        type: string
+        
       run-tests:
         description: Run tests
         type: boolean
@@ -49,4 +54,5 @@ jobs:
 
       - name: Super Linter Code Base
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
-
+        with: 
+          working-directory: ${{ inputs.working-directory}}
