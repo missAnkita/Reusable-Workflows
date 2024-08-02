@@ -8,11 +8,6 @@ on:
         description: Platform to execute on
         type: string
         default: ubuntu-latest
-        
-      dotnet-version:
-        description: Version of dotnet to use
-        type: string
-        default: 8.0.x
       
       project-folder:
         description: The folder containing the project to build
@@ -23,16 +18,6 @@ on:
         description: Run tests
         type: boolean
         default: true
-      
-      publish-configuration:
-        description: Configuration to publish
-        type: string
-        default: Release
-        
-      artifact-name:
-        description: Name of the artifact to upload
-        type: string
-        default: drop
     
 jobs:
   lint:
