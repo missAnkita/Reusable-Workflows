@@ -10,4 +10,5 @@ runs:
       env:
           # GITHUB_TOKEN: ${{ inputs.token }}
           VALIDATE_ALL_CODEBASE: false
-          VALIDATE_DOTNET: true
+          # VALIDATE_DOTNET: true
+          VALIDATE_CSHARP: true
