@@ -1,4 +1,11 @@
+name: Super Linter action
+description: Super Linter action for Azure functions dotnet application
 inputs:
+  working-directory:
+    description: 'working directory to test'
+    required: true
+    type: string
+
   token:
     description: 'A Github token'
     required: true
@@ -9,6 +16,7 @@ runs:
   steps:
     - name: Super Linter Code base run
       uses: super-linter/super-linter@v4
+      working-directory: ${{ inputs.working-directory }}
       env:
           # GITHUB_TOKEN: ${{ inputs.token }}
           VALIDATE_ALL_CODEBASE: false
