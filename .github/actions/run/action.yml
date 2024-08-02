@@ -10,5 +10,5 @@ runs:
   steps:
     - name: Run application
       shell: bash
-      run: dotnet run --project dotnetapp.csproj
+      run: dotnet run --project azure_functions_app1.csproj
       working-directory: ${{ inputs.working-directory }}
