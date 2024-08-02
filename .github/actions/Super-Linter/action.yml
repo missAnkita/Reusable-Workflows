@@ -1,5 +1,9 @@
 name: Super Linter action
 description: Super Linter action for Azure functions dotnet application
+inputs:
+  token:
+    description: 'A Github token'
+    required: true
     
 runs:
   using: "composite"
@@ -8,7 +12,6 @@ runs:
     - name: Super Linter Code base run
       uses: super-linter/super-linter@v4
       env:
-          # GITHUB_TOKEN: ${{ inputs.token }}
-          VALIDATE_ALL_CODEBASE: false
-          # VALIDATE_DOTNET: true
+          GITHUB_TOKEN: ${{ inputs.token }}
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_CSHARP: true
