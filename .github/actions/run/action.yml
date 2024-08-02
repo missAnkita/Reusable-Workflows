@@ -1,7 +1,13 @@
 runs:
   using: "composite"
-
+inputs:
+  working-directory:
+    description: 'working directory to create build'
+    required: true
+    type: string
+    
   steps:
     - name: Run application
       shell: bash
       run: dotnet run --project dotnetapp.csproj
+      working-directory: ${{ inputs.working-directory }}
