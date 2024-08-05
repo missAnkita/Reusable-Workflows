@@ -10,7 +10,7 @@ runs:
 
   steps:
     - name: Super Linter Code base run
-      uses: super-linter/super-linter@v6.8.0
+      uses: super-linter/super-linter@v5
       env:
           GITHUB_TOKEN: ${{ inputs.token }}
           VALIDATE_ALL_CODEBASE: true
