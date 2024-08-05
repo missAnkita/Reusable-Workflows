@@ -31,9 +31,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: List files
-        run: ls -la ${{ inputs.project-folder }}
+        with:
+          ref: feature/test-sprinter
 
       - name: Super Linter Code Base
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@feature/test-sprinter
