@@ -36,7 +36,7 @@ jobs:
         run: ls -la ${{ inputs.project-folder }}
 
       - name: Super Linter Code Base
-        uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
+        uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@feature/test-sprinter
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           working-directory: ${{ inputs.project-folder }}
