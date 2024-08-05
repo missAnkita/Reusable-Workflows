@@ -33,6 +33,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           ref: feature/test-sprinter
+          fetch-depth: 0
 
       - name: Super Linter Code Base
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@feature/test-sprinter
