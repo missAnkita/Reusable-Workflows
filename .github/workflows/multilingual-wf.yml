@@ -2,7 +2,7 @@ name: Auto-Detect and Deploy Project
 
 on:
   workflow_dispatch:
-  
+
     inputs:
       version:
         description: 'The version to deploy'
@@ -30,10 +30,6 @@ jobs:
             echo "Unknown project type"
             exit 1
           fi
-
-  deploy-dotnet:
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy .NET
         if: ${{ steps.detect_project.outputs.project_type == 'NET' }}
         uses: missAnkita/Reusable-Workflows/.github/workflows/app-main.yml@main
@@ -42,9 +38,6 @@ jobs:
         #secrets:
         #  DEPLOYMENT_SECRET: ${{ secrets.DEPLOYMENT_SECRET }}
 
-  deploy-angular:
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy Angular
         if: ${{ steps.detect_project.outputs.project_type == 'Angular' }}
         uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-angular.yml@main
