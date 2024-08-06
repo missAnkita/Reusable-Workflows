@@ -1,0 +1,48 @@
+name: Auto-Detect and Deploy Project
+
+on:
+  workflow_dispatch:
+  
+    inputs:
+      version:
+        description: 'The version to deploy'
+        required: false
+        type: string
+        default: 'latest'
+
+jobs:
+  detect-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Detect project type
+        id: detect_project
+        run: |
+          if [ -f "HelloWorldApp/HelloWorldApp.csproj" ]; then
+            echo "Project type is .NET"
+            echo "::set-output name=project_type::.NET"
+          elif [ -f "angular.json" ]; then
+            echo "Project type is Angular"
+            echo "::set-output name=project_type::Angular"
+          else
+            echo "Unknown project type"
+            exit 1
+          fi
+
+      - name: Deploy .NET
+        if: ${{ steps.detect_project.outputs.project_type == 'NET' }}
+        uses: missAnkita/Reusable-Workflows/.github/workflows/app-main.yml@main
+        with:
+          version: ${{ github.event.inputs.version }}
+        #secrets:
+        #  DEPLOYMENT_SECRET: ${{ secrets.DEPLOYMENT_SECRET }}
+
+      - name: Deploy Angular
+        if: ${{ steps.detect_project.outputs.project_type == 'Angular' }}
+        uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-angular.yml@main
+        with:
+          version: ${{ github.event.inputs.version }}
+      #  secrets:
+      #    DEPLOYMENT_SECRET: ${{ secrets.DEPLOYMENT_SECRET }}
