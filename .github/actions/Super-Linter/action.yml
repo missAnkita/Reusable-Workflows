@@ -1,9 +1,10 @@
 name: Super Linter action
 description: Super Linter action for Azure functions dotnet application
 inputs:
-  token:
-    description: 'A Github token'
+  working-directory:
+    description: 'working directory to restore dependencies'
     required: true
+    type: string
     
 runs:
   using: "composite"
@@ -15,3 +16,5 @@ runs:
          # GITHUB_TOKEN: ${{ inputs.token }}
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_CSHARP: false
+          # FILTER_REGEX_INCLUDE: .*src/.*
+          FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
