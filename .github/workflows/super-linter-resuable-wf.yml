@@ -39,6 +39,5 @@ jobs:
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
         with:
           #token: ${{ secrets.GITHUB_TOKEN }}
-         # working-directory: ${{ inputs.project-folder }}
-          FILTER_REGEX_INCLUDE: ${{ inputs.project-folder }}
+          working-directory: ${{ inputs.project-folder }}
         
