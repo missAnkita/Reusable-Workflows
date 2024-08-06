@@ -2,7 +2,7 @@ name: Super Linter action
 description: Super Linter action for Azure functions dotnet application
 inputs:
   working-directory:
-    description: 'working directory to restore dependencies'
+    description: 'working directory to lint'
     required: true
     type: string
     
