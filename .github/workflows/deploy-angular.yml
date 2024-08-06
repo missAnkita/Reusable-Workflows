@@ -1,0 +1,42 @@
+name: Deploy Angular Application
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        description: 'The environment to deploy to'
+        required: true
+        type: string
+      version:
+        description: 'The version to deploy'
+        required: false
+        type: string
+        default: 'latest'
+   # secrets:
+   #   required: [DEPLOYMENT_SECRET]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular application
+        run: npm run build -- --prod
+
+      - name: Deploy
+        run: |
+          echo "Deploying Angular application to ${{ inputs.environment }} environment"
+          echo "Version: ${{ inputs.version }}"
+          # Add your Angular deployment commands here
+     #   env:
+     #     DEPLOYMENT_SECRET: ${{ secrets.DEPLOYMENT_SECRET }}
