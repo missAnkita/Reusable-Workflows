@@ -34,7 +34,7 @@ jobs:
 
       - name: Super Linter Code Base
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
-       # with:
+        with:
           #token: ${{ secrets.GITHUB_TOKEN }}
-         # working-directory: ${{ inputs.project-folder }}
+          working-directory: ${{ inputs.project-folder }}
         
