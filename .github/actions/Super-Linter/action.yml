@@ -14,7 +14,8 @@ runs:
       uses: super-linter/super-linter@v5
       env:
          # GITHUB_TOKEN: ${{ inputs.token }}
-          VALIDATE_ALL_CODEBASE: false
-          VALIDATE_CSHARP: false
+          # VALIDATE_ALL_CODEBASE: false
+          # VALIDATE_CSHARP: false
           # FILTER_REGEX_INCLUDE: .*src/.*
-          FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
+          # FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
+          FILTER_REGEX_INCLUDE: '${{ inputs.working-directory }}/.*\\.(cs|js)$'
