@@ -36,8 +36,12 @@ jobs:
         run: ls -R ${{ inputs.project-folder }}
 
       - name: Super Linter Code Base
-        uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
-        with:
+        uses: super-linter/super-linter@v5
+        #uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
+        #with:
           #token: ${{ secrets.GITHUB_TOKEN }}
-          working-directory: ${{ inputs.project-folder }}
+          #working-directory: ${{ inputs.project-folder }}
+        env:
+          FILTER_REGEX_INCLUDE: '.*\\.(cs|js)$'  # Adjust this pattern as needed
+          FILTER_REGEX_EXCLUDE: '.*\\.github/.*'  # Exclude files in .github directory
         
