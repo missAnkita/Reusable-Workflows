@@ -1,0 +1,105 @@
+name: .NET with reusable actions
+
+on: 
+  workflow_call:
+    inputs:
+      dotnet-version:
+        description: '.NET version to install'
+        required: true
+        type: string
+      working-directory:
+        description: 'working directory for App code'
+        required: true
+        type: string
+      publish-directory:
+        description: 'directory to publish package'
+        required: true
+        type: string
+      function-app-name:
+        description: 'name of the azure function app'
+        required: true
+        type: string 
+      client-id:
+        description: 'working directory to create build'
+        required: true
+        type: string
+      tenant-id:
+        description: 'working directory to create build'
+        required: true
+        type: string
+      subscription-id:
+        description: 'working directory to create build'
+        required: true
+        type: string
+      artifact-name:
+        description: 'artifact name'
+        required: true
+        type: string 
+
+jobs:
+  Initialise_Terraform:    
+    runs-on: ubuntu-latest
+    steps:    
+     - name: terraform
+       uses: missAnkita/Reusable-Workflows/.github/actions/terraform@feature/dotnetapp-deploy
+
+  Build:  
+    runs-on: ubuntu-latest
+    needs: [ "Initialise_Terraform"]
+    steps:
+    - name: checkout 
+      uses: missAnkita/Reusable-Workflows/.github/actions/checkout@feature/dotnetapp-deploy
+    
+    - name: security scan
+      uses: missAnkita/Reusable-Workflows/.github/actions/security-scan@feature/dotnetapp-deploy
+
+    - name: setup .NET Core
+      uses: missAnkita/Reusable-Workflows/.github/actions/setup-dotnet@feature/dotnetapp-deploy
+      with: 
+        dotnet-version: ${{ inputs.dotnet-version}}
+
+    - name: restore dependencies
+      uses: missAnkita/Reusable-Workflows/.github/actions/restore-dependencies@feature/dotnetapp-deploy
+      with: 
+        working-directory: ${{ inputs.working-directory}}
+
+    - name: build
+      uses: missAnkita/Reusable-Workflows/.github/actions/build@feature/dotnetapp-deploy
+      with: 
+        working-directory: ${{ inputs.working-directory}}
+
+    - name: test
+      uses: missAnkita/Reusable-Workflows/.github/actions/test@feature/dotnetapp-deploy
+      with: 
+        working-directory: ${{ inputs.working-directory}}
+
+    - name: package
+      uses: missAnkita/Reusable-Workflows/.github/actions/package@feature/dotnetapp-deploy
+      with: 
+        working-directory: ${{ inputs.working-directory}}
+
+    - name: publish artifacts
+      uses: missAnkita/Reusable-Workflows/.github/actions/publish@feature/dotnetapp-deploy
+      with: 
+        publish-directory: ${{ inputs.publish-directory}}
+
+  Deploy:    
+    runs-on: ubuntu-latest
+    needs: [ "Initialise_Terraform","Build"]
+    steps:     
+     - name: download-artifact 
+       uses: missAnkita/Reusable-Workflows/.github/actions/download-artifact@feature/dotnetapp-deploy
+       with: 
+        artifact-name: ${{ inputs.artifact-name }}
+        
+     - name: login to azure
+       uses: missAnkita/Reusable-Workflows/.github/actions/azlogin@feature/dotnetapp-deploy
+       with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
+        subscription-id: ${{ inputs.subscription-id }}
+
+     - name: deploy
+       uses: missAnkita/Reusable-Workflows/.github/actions/deploy@feature/dotnetapp-deploy
+       with: 
+        function-app-name: ${{ inputs.function-app-name }}
