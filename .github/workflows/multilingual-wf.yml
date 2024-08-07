@@ -1,13 +1,9 @@
-name: Auto-Detect and Deploy Project
+
+name: RU WF for .NET
 
 on:
   workflow_call:
     inputs:
-      version:
-        description: 'The version to deploy'
-        required: false
-        type: string
-        default: 'latest'
       runs-on:
         description: Platform to execute on
         type: string
@@ -22,10 +18,26 @@ on:
         description: The folder containing the project to build
         type: string
         default: .
-
+        
+      run-tests:
+        description: Run tests
+        type: boolean
+        default: true
+      
+      publish-configuration:
+        description: Configuration to publish
+        type: string
+        default: Release
+        
+      artifact-name:
+        description: Name of the artifact to upload
+        type: string
+        default: drop
+    
 jobs:
-  detect-and-deploy:
-    name: Detect and deploy
+  build:
+    name: Build dotnet app
+    
     runs-on: ${{ inputs.runs-on }}
     defaults:
       run:
@@ -33,34 +45,29 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
-      - name: Detect project type
-        id: detect_project
-        run: |
-          if [ -f "HelloWorldApp/HelloWorldApp.csproj" ]; then
-            echo "Project type is .NET"
-            echo "::set-output name=project_type::.NET"
-          elif [ -f "angular.json" ]; then
-            echo "Project type is Angular"
-            echo "::set-output name=project_type::Angular"
-          else
-            echo "Unknown project type"
-            exit 1
-          fi
+      - name: Super Linter Code Base
+        uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Deploy .NET
-        if: ${{ steps.detect_project.outputs.project_type == 'NET' }}
-        uses: missAnkita/Reusable-Workflows/.github/workflows/app-main.yml@main
+      - name: Build Project
+        uses: missAnkita/Reusable-Workflows/.github/actions/Build@main
+   
+      - name: Test Project
+        uses: missAnkita/Reusable-Workflows/.github/actions/test@main
+      
+      - name: Run Application
+        uses: missAnkita/Reusable-Workflows/.github/actions/run@main
+        
+      - name: Publish
+        run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
+        
+      - name: Upload a Build Artifact
+        #uses: actions/upload-artifact@v2.2.2
+        uses: actions/upload-artifact@v4
         with:
-          version: ${{ github.event.inputs.version }}
-        #secrets:
-        #  DEPLOYMENT_SECRET: ${{ secrets.DEPLOYMENT_SECRET }}
-
-      - name: Deploy Angular
-        if: ${{ steps.detect_project.outputs.project_type == 'Angular' }}
-        uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-angular.yml@main
-        with:
-          version: ${{ github.event.inputs.version }}
-      #  secrets:
-      #    DEPLOYMENT_SECRET: ${{ secrets.DEPLOYMENT_SECRET }}
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.project-folder }}/wdrop/**
+          if-no-files-found: error
