@@ -1,8 +1,7 @@
 name: deploy app
 
-on: 
-  workflow_dispatch:
-  #workflow_call:
+on:
+  workflow_call:
     inputs:
       working-directory:
         description: 'working directory for App code'
