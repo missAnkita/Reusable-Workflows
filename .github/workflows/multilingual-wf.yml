@@ -1,4 +1,4 @@
-name: .NET with reusable actions
+name: deploy app
 
 on: 
   workflow_call:
