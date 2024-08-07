@@ -32,6 +32,7 @@ jobs:
         if: ${{ github.event.inputs.framework == 'azure-functions' }}
         run: |
          echo "Project type is Azure Functions"
+         uses: missAnkita/Reusable-Workflows/.github/workflows/reusable-dotnet.yml@feature/test-multilingual
          #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-azure-functions.yml@main
         
       - name: Handle Unknown Framework
