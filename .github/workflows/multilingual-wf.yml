@@ -1,73 +1,70 @@
+name: .NET with reusable actions
 
-name: RU WF for .NET
-
-on:
+on: 
   workflow_call:
     inputs:
-      runs-on:
-        description: Platform to execute on
-        type: string
-        default: ubuntu-latest
-        
       dotnet-version:
-        description: Version of dotnet to use
+        description: '.NET version to install'
+        required: true
         type: string
-        default: 8.0.x
-      
-      project-folder:
-        description: The folder containing the project to build
+      working-directory:
+        description: 'working directory for App code'
+        required: true
         type: string
-        default: .
-        
-      run-tests:
-        description: Run tests
-        type: boolean
-        default: true
-      
-      publish-configuration:
-        description: Configuration to publish
+      publish-directory:
+        description: 'directory to publish package'
+        required: true
         type: string
-        default: Release
-        
+      function-app-name:
+        description: 'name of the azure function app'
+        required: true
+        type: string 
+      client-id:
+        description: 'working directory to create build'
+        required: true
+        type: string
+      tenant-id:
+        description: 'working directory to create build'
+        required: true
+        type: string
+      subscription-id:
+        description: 'working directory to create build'
+        required: true
+        type: string
       artifact-name:
-        description: Name of the artifact to upload
+        description: 'artifact name'
+        required: true
+        type: string 
+      framework:
+        description: 'The type of framework or service'
+        required: true
         type: string
-        default: drop
-    
-jobs:
-  build:
-    name: Build dotnet app
-    
-    runs-on: ${{ inputs.runs-on }}
-    defaults:
-      run:
-        working-directory: ${{ inputs.project-folder }}
-    
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
-      - name: Super Linter Code Base
-        uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Build Project
-        uses: missAnkita/Reusable-Workflows/.github/actions/Build@main
-   
-      - name: Test Project
-        uses: missAnkita/Reusable-Workflows/.github/actions/test@main
-      
-      - name: Run Application
-        uses: missAnkita/Reusable-Workflows/.github/actions/run@main
+jobs:
+  detect-and-deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Deploy Static web App
+        if: ${{ github.event.inputs.framework == 'static-web-app' }}
+        run: |
+          echo "Project type is Static Web App"
+        #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-static-webapp.yml@main
+
+      - name: Deploy Angular
+        if: ${{ github.event.inputs.framework == 'angular' }}
+        run: |
+          echo "Project type is Angular"
+        #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-angular.yml@main
+
+      - name: Deploy Azure Functions
+        if: ${{ github.event.inputs.framework == 'azure-functions' }}
+        run: |
+          echo "Project type is Azure Functions"
+        #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-azure-functions.yml@main
         
-      - name: Publish
-        run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
-        
-      - name: Upload a Build Artifact
-        #uses: actions/upload-artifact@v2.2.2
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ inputs.artifact-name }}
-          path: ${{ inputs.project-folder }}/wdrop/**
-          if-no-files-found: error
+      - name: Handle Unknown Framework
+        if: ${{ github.event.inputs.framework != 'angular' && github.event.inputs.framework != 'static-web-app' && github.event.inputs.framework != 'azure-functions' }}
+        run: |
+          echo "Unknown framework: ${{ github.event.inputs.framework }}"
+          exit 1
+  
