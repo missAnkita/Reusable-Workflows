@@ -3,58 +3,30 @@ name: deploy app
 on: 
   workflow_call:
     inputs:
-      dotnet-version:
-        description: '.NET version to install'
-        required: true
-        type: string
       working-directory:
         description: 'working directory for App code'
         required: true
-        type: string
-      publish-directory:
-        description: 'directory to publish package'
-        required: true
-        type: string
-      function-app-name:
-        description: 'name of the azure function app'
-        required: true
-        type: string 
-      client-id:
-        description: 'working directory to create build'
-        required: true
-        type: string
-      tenant-id:
-        description: 'working directory to create build'
-        required: true
-        type: string
-      subscription-id:
-        description: 'working directory to create build'
-        required: true
-        type: string
-      artifact-name:
-        description: 'artifact name'
-        required: true
-        type: string 
+        type: string    
       framework:
         description: 'The type of framework or service'
         required: true
         type: string
 
-jobs:
-  detect-and-deploy:
-    runs-on: ubuntu-latest
-    steps: 
-      - name: Deploy Static web App
-        if: ${{ github.event.inputs.framework == 'static-web-app' }}
-        run: |
-          echo "Project type is Static Web App"
-        #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-static-webapp.yml@main
+  jobs:
+    detect-and-deploy:
+      runs-on: ubuntu-latest
+      steps: 
+        - name: Deploy Static web App
+          if: ${{ github.event.inputs.framework == 'static-web-app' }}
+          run: |
+            echo "Project type is Static Web App"
+            #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-static-webapp.yml@main
 
-      - name: Deploy Angular
-        if: ${{ github.event.inputs.framework == 'angular' }}
-        run: |
-          echo "Project type is Angular"
-        #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-angular.yml@main
+        - name: Deploy Angular
+          if: ${{ github.event.inputs.framework == 'angular' }}
+          run: |
+            echo "Project type is Angular"
+            #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-angular.yml@main
 
       - name: Deploy Azure Functions
         if: ${{ github.event.inputs.framework == 'azure-functions' }}
