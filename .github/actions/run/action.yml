@@ -1,9 +1,0 @@
-
-runs:
-  using: "composite"
-
-  steps:
-    - name: Run application
-      shell: bash
-      run: dotnet run --project dotnetapp.csproj
-      
