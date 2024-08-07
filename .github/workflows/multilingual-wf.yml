@@ -12,23 +12,23 @@ on:
         required: true
         type: string
 
-  jobs:
-    detect-and-deploy:
-      runs-on: ubuntu-latest
-      steps: 
-        - name: Deploy Static web App
-          if: ${{ github.event.inputs.framework == 'static-web-app' }}
+jobs:
+  detect-and-deploy:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Deploy Static web App
+        if: ${{ github.event.inputs.framework == 'static-web-app' }}
           run: |
             echo "Project type is Static Web App"
             #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-static-webapp.yml@main
 
-        - name: Deploy Angular
-          if: ${{ github.event.inputs.framework == 'angular' }}
+      - name: Deploy Angular
+        if: ${{ github.event.inputs.framework == 'angular' }}
           run: |
             echo "Project type is Angular"
             #uses: missAnkita/Reusable-Workflows/.github/workflows/deploy-angular.yml@main
 
-      - name: Deploy Azure Functions
+     - name: Deploy Azure Functions
         if: ${{ github.event.inputs.framework == 'azure-functions' }}
         run: |
           echo "Project type is Azure Functions"
