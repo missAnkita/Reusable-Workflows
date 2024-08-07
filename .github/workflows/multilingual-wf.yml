@@ -2,18 +2,35 @@ name: Auto-Detect and Deploy Project
 
 on:
   workflow_call:
-
     inputs:
       version:
         description: 'The version to deploy'
         required: false
         type: string
         default: 'latest'
+      runs-on:
+        description: Platform to execute on
+        type: string
+        default: ubuntu-latest
+        
+      dotnet-version:
+        description: Version of dotnet to use
+        type: string
+        default: 8.0.x
+      
+      project-folder:
+        description: The folder containing the project to build
+        type: string
+        default: .
 
 jobs:
   detect-and-deploy:
     name: Detect and deploy
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runs-on }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.project-folder }}
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
