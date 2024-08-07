@@ -12,6 +12,7 @@ on:
 
 jobs:
   detect-and-deploy:
+    name: Detect and deploy
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -30,6 +31,7 @@ jobs:
             echo "Unknown project type"
             exit 1
           fi
+          
       - name: Deploy .NET
         if: ${{ steps.detect_project.outputs.project_type == 'NET' }}
         uses: missAnkita/Reusable-Workflows/.github/workflows/app-main.yml@main
