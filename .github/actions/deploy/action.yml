@@ -14,17 +14,48 @@ inputs:
 runs:
  using: 'composite'
  steps:
-   - name: deploy
-     run: |
-      if [ "${{ inputs.framework }}" == "angular" ]; then
-          echo "echo Deploying Angular app..."
-      elif [ "${{ inputs.framework }}" == "static-webapp" ]; then
-          echo "echo Deploying Static Web App..."
-      elif [ "${{ inputs.framework }}" == "azure-functions" ]; then
-          uses: azure/functions-action@v1
-          with:
-          app-name: ${{ inputs.function-app-name }}
-      else
-          echo "Unsupported framework: ${{ inputs.framework }}" >> deploy.sh
-          exit 1
-        fi
+    - name: Deploy Angular app
+      if: ${{ inputs.framework == 'angular' }}
+      run: |
+        echo "Deploying Angular app..."
+        # Add commands to build and deploy Angular app here
+      shell: bash
+
+    - name: Deploy Static Web App
+      if: ${{ inputs.framework == 'static-webapp' }}
+      run: |
+        echo "Deploying Static Web App..."
+        # Add commands to deploy static web app here
+      shell: bash
+
+    - name: Deploy Azure Functions
+      if: ${{ inputs.framework == 'azure-functions' }}
+      uses: azure/functions-action@v1
+      with:
+        app-name: ${{ inputs.function-app-name }}
+
+    - name: Handle unsupported frameworks
+      if: ${{ inputs.framework != 'angular' && inputs.framework != 'static-webapp' && inputs.framework != 'azure-functions' }}
+      run: |
+        echo "Unsupported framework: ${{ inputs.framework }}"
+        exit 1
+      shell: bash
+
+
+
+
+    # - name: deploy
+    #   run: |
+    #    if [ "${{ inputs.framework }}" == "angular" ]; then
+    #       echo "echo Deploying Angular app..."
+    #    elif [ "${{ inputs.framework }}" == "static-webapp" ]; then
+    #       echo "echo Deploying Static Web App..."
+    #    elif [ "${{ inputs.framework }}" == "azure-functions" ]; then
+    #       uses: azure/functions-action@v1
+    #       with:
+    #       app-name: ${{ inputs.function-app-name }}
+    #    else
+    #       echo "Unsupported framework: ${{ inputs.framework }}" >> deploy.sh
+    #       exit 1
+    #    fi
+      
