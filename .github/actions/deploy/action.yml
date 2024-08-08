@@ -30,9 +30,13 @@ runs:
 
     - name: Deploy Azure Functions
       if: ${{ inputs.framework == 'azure-functions' }}
-      uses: azure/functions-action@v1
-      with:
-        app-name: ${{ inputs.function-app-name }}
+      run: |
+        echo "Deploying Azure Functions App..."
+        # Add commands to deploy static web app here
+      shell: bash
+      # uses: azure/functions-action@v1
+      # with:
+      #   app-name: ${{ inputs.function-app-name }}
 
     - name: Handle unsupported frameworks
       if: ${{ inputs.framework != 'angular' && inputs.framework != 'static-webapp' && inputs.framework != 'azure-functions' }}
