@@ -20,10 +20,11 @@ on:
       #   description: 'directory to publish package'
       #   required: true
       #   type: string
-      # function-app-name:
-      #   description: 'name of the azure function app'
-      #   required: true
-      #   type: string 
+      function-app-name:
+        description: 'name of the azure function app'
+        required: true
+        default: test-app0099
+        type: string 
       # client-id:
       #   description: 'working directory to create build'
       #   required: true

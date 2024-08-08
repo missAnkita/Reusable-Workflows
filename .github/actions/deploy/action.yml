@@ -4,7 +4,6 @@ inputs:
   function-app-name:
       description: 'name of the app'
       required: true
-      default: test-app
       type: string 
   framework:
         description: 'The type of framework or service'
