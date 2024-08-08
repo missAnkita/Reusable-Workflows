@@ -1,0 +1,20 @@
+name: 'Deploy'
+description: 'deploy the application'
+inputs:
+  function-app-name:
+      description: 'name of the app'
+      required: true
+      type: string 
+  framework:
+        description: 'The type of framework or service'
+        required: true
+        default: azure-functions
+        type: string
+
+runs:
+ using: 'composite'
+ steps:
+   - name: deploy
+     uses: azure/functions-action@v1
+     with:
+          app-name: ${{ inputs.function-app-name }}
