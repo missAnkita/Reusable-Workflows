@@ -53,7 +53,7 @@ jobs:
     # needs: [ "Initialise_Terraform"]
     steps:
     - name: checkout 
-      uses: missAnkita/Reusable-Workflows/.github/actions/checkout@feature/dotnetapp-deploy
+      uses: missAnkita/Reusable-Workflows/.github/actions/checkout@feature/test-multilingual
     
     # - name: security scan
     #   uses: missAnkita/Reusable-Workflows/.github/actions/security-scan@feature/dotnetapp-deploy
@@ -116,7 +116,7 @@ jobs:
     #     subscription-id: ${{ inputs.subscription-id }}
 
      - name: deploy
-       uses: missAnkita/Reusable-Workflows/.github/actions/deploy@feature/dotnetapp-deploy
+       uses: missAnkita/Reusable-Workflows/.github/actions/deploy@feature/test-multilingual
        with: 
         function-app-name: ${{ inputs.function-app-name }}
         #steps which needs check the language type ----6----
