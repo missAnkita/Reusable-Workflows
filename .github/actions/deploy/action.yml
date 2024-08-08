@@ -15,6 +15,16 @@ runs:
  using: 'composite'
  steps:
    - name: deploy
-     uses: azure/functions-action@v1
-     with:
+     run: |
+      if [ "${{ inputs.framework }}" == "angular" ]; then
+          echo "echo Deploying Angular app..."
+      elif [ "${{ inputs.framework }}" == "static-webapp" ]; then
+          echo "echo Deploying Static Web App..."
+      elif [ "${{ inputs.framework }}" == "azure-functions" ]; then
+          uses: azure/functions-action@v1
+          with:
           app-name: ${{ inputs.function-app-name }}
+      else
+          echo "Unsupported framework: ${{ inputs.framework }}" >> deploy.sh
+          exit 1
+        fi
