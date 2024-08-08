@@ -3,38 +3,43 @@ name: .NET with reusable actions
 on: 
   workflow_call:
     inputs:
-      dotnet-version:
-        description: '.NET version to install'
-        required: true
-        type: string
+      # dotnet-version:
+      #   description: '.NET version to install'
+      #   required: true
+      #   type: string
       working-directory:
         description: 'working directory for App code'
         required: true
         type: string
-      publish-directory:
-        description: 'directory to publish package'
+      framework:
+        description: 'The type of framework or service'
         required: true
+        default: azure-functions
         type: string
-      function-app-name:
-        description: 'name of the azure function app'
-        required: true
-        type: string 
-      client-id:
-        description: 'working directory to create build'
-        required: true
-        type: string
-      tenant-id:
-        description: 'working directory to create build'
-        required: true
-        type: string
-      subscription-id:
-        description: 'working directory to create build'
-        required: true
-        type: string
-      artifact-name:
-        description: 'artifact name'
-        required: true
-        type: string 
+      # publish-directory:
+      #   description: 'directory to publish package'
+      #   required: true
+      #   type: string
+      # function-app-name:
+      #   description: 'name of the azure function app'
+      #   required: true
+      #   type: string 
+      # client-id:
+      #   description: 'working directory to create build'
+      #   required: true
+      #   type: string
+      # tenant-id:
+      #   description: 'working directory to create build'
+      #   required: true
+      #   type: string
+      # subscription-id:
+      #   description: 'working directory to create build'
+      #   required: true
+      #   type: string
+      # artifact-name:
+      #   description: 'artifact name'
+      #   required: true
+      #   type: string 
 
 jobs:
   # Initialise_Terraform:    
