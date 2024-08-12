@@ -10,7 +10,8 @@ runs:
   using: "composite"
 
   steps:
-    - name: Super Linter Code base run
+    - id: lint
+      name: Super Linter Code base run
       uses: super-linter/super-linter@v5
       env:
           # GITHUB_TOKEN: ${{ inputs.token }}
@@ -22,8 +23,10 @@ runs:
           # /.*\\.(cs|js)$'
           # FILTER_REGEX_EXCLUDE: .github/.*
           # FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
-      # run: echo "$FILTER_REGEX_INCLUDE"
-      # shell: bash
+
+    - id: echo lint folder
+      run: echo "$FILTER_REGEX_INCLUDE"
+      shell: bash
 
           
 
