@@ -22,7 +22,7 @@ runs:
           # /.*\\.(cs|js)$'
           # FILTER_REGEX_EXCLUDE: .github/.*
           # FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
-      run: echo "$FILTER_REGEX_INCLUDE"
+      # run: echo "$FILTER_REGEX_INCLUDE"
       # shell: bash
 
           
