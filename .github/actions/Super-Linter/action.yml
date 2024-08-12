@@ -5,6 +5,9 @@ inputs:
     description: 'working directory to lint'
     required: true
     type: string
+
+  token:
+    required: true
     
 runs:
   using: "composite"
@@ -13,7 +16,7 @@ runs:
     - name: Super Linter Code base run
       uses: super-linter/super-linter@v5
       env:
-         # GITHUB_TOKEN: ${{ inputs.token }}
+          GITHUB_TOKEN: ${{ inputs.token }}
           # VALIDATE_ALL_CODEBASE: false
           # VALIDATE_CSHARP: false
           # FILTER_REGEX_INCLUDE: .*src/.*
