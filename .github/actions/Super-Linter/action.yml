@@ -30,9 +30,9 @@ runs:
           # FILTER_REGEX_EXCLUDE: .github/.*
           # FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
                
-   # - id: echo
-   #   run: echo "$FILTER_REGEX_INCLUDE"
-   #   shell: bash
+    - id: echo
+      run: echo "$FILTER_REGEX_INCLUDE"
+      shell: bash
 
           
 
