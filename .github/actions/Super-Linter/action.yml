@@ -26,9 +26,5 @@ runs:
           # FILTER_REGEX_EXCLUDE: .github/.*
           # FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
 
-     - name: Show default environment variables
-       run: |
-          echo "The folder to include is: $FILTER_REGEX_INCLUDE"  
-       shell: bash
           
 
