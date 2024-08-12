@@ -13,6 +13,7 @@ runs:
     - id: lint
       name: Super Linter Code base run
       run: echo "FILTER_REGEX_INCLUDE=${{ inputs.working-directory }}" >> $GITHUB_ENV
+      shell: bash
       uses: super-linter/super-linter@v5    
       env:
           # GITHUB_TOKEN: ${{ inputs.token }}
