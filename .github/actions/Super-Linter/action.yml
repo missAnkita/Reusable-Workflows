@@ -18,7 +18,8 @@ runs:
           # VALIDATE_CSHARP: false
           # FILTER_REGEX_INCLUDE: .*src/.*
           # FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
-          FILTER_REGEX_INCLUDE: '${{ inputs.working-directory }}/.*\\.(cs|js)$'
+          FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
+          # /.*\\.(cs|js)$'
           FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
           
 
