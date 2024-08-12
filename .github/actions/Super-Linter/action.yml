@@ -16,14 +16,19 @@ runs:
     - name: Super Linter Code base run
       uses: super-linter/super-linter@v5
       env:
-          GITHUB_TOKEN: ${{ inputs.token }}
+          # GITHUB_TOKEN: ${{ inputs.token }}
           # VALIDATE_ALL_CODEBASE: false
           # VALIDATE_CSHARP: false
           # FILTER_REGEX_INCLUDE: .*src/.*
           # FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
           FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
           # /.*\\.(cs|js)$'
-          FILTER_REGEX_EXCLUDE: .github/.*
+          # FILTER_REGEX_EXCLUDE: .github/.*
           # FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
+
+     - name: Show default environment variables
+       run: |
+          echo "The folder to include is: $FILTER_REGEX_INCLUDE"  
+       shell: bash
           
 
