@@ -24,7 +24,7 @@ runs:
           # FILTER_REGEX_EXCLUDE: .github/.*
           # FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
 
-    - id: echo lint folder
+    - id: echo
       run: echo "$FILTER_REGEX_INCLUDE"
       shell: bash
 
