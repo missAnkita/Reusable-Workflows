@@ -4,10 +4,7 @@ inputs:
   working-directory:
     description: 'working directory to lint'
     required: true
-    type: string
-
-  token:
-    required: true
+    #type: string
     
 runs:
   using: "composite"
@@ -26,7 +23,7 @@ runs:
           # FILTER_REGEX_EXCLUDE: .github/.*
           # FILTER_REGEX_EXCLUDE: '.*\\.github/.*'
       run: echo "$FILTER_REGEX_INCLUDE"
-      shell: bash
+      # shell: bash
 
           
 
