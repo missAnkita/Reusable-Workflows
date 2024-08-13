@@ -45,6 +45,6 @@ jobs:
          # working-directory: ${{ inputs.working-directory }}
         env:
        #   VALIDATE_ALL_CODEBASE: false
-          FILTER_REGEX_INCLUDE: .*\\.(cs|js|sh)$
-          $'${{ DEFAULT_WORKSPACE }}/.*\\.(cs|js|sh)$'
+          FILTER_REGEX_INCLUDE: '.*\.(cs|js|sh)$'
+         #'${{ DEFAULT_WORKSPACE }}/.*\\.(cs|js|sh)$'
         
