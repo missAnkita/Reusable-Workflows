@@ -44,6 +44,6 @@ jobs:
           #token: ${{ secrets.GITHUB_TOKEN }}
           working-directory: ${{ inputs.working-directory }}
         env:
-          #VALIDATE_ALL_CODEBASE: false
-          FILTER_REGEX_INCLUDE: '${{ GITHUB.WORKSPACE }}/.*\\.(cs|js|sh)$'
+          VALIDATE_ALL_CODEBASE: false
+          #FILTER_REGEX_INCLUDE: '${{ GITHUB.WORKSPACE }}/.*\\.(cs|js|sh)$'
         
