@@ -9,7 +9,7 @@ on:
         type: string
         default: ubuntu-latest
       
-      project-folder:
+      working-directory:
         description: The folder containing the project to build
         type: string
         default: .
@@ -26,18 +26,21 @@ jobs:
     runs-on: ${{ inputs.runs-on }}
     defaults:
       run:
-        working-directory: ${{ inputs.project-folder }}
+        working-directory: ${{ inputs.working-directory }}
     
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          ref: feature/test-sprinter
-          fetch-depth: 1
+
+      - name: List Files
+        run: ls -R ${{ inputs.working-directory }}
 
       - name: Super Linter Code Base
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@feature/test-sprinter
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          working-directory: ${{ inputs.project-folder }}
+        env:
+       #  VALIDATE_ALL_CODEBASE: false
+          FILTER_REGEX_INCLUDE: .*\.(cs|js|sh)$
+          MULTI_STATUS: false
+          # VALIDATE_YAML: false
+          FILTER_REGEX_EXCLUDE: .github/.*
         
