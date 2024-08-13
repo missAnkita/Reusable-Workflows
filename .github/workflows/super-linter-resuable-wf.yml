@@ -47,5 +47,8 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           FILTER_REGEX_INCLUDE: ${{ inputs.working-directory }}
           # /.*\\.(cs|js)$
+
+      - name: List files in workspace
+        run: ls -R /github/workspace
         
         
