@@ -46,5 +46,6 @@ jobs:
         env:
        #   VALIDATE_ALL_CODEBASE: false
           FILTER_REGEX_INCLUDE: .*\.(cs|js|sh)$
+          MULTI_STATUS: false
          #'${{ DEFAULT_WORKSPACE }}/.*\\.(cs|js|sh)$'
         
