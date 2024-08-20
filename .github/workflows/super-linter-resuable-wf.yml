@@ -44,5 +44,5 @@ jobs:
           FILTER_REGEX_INCLUDE: .*\.(cs|js|sh)$
           MULTI_STATUS: false
           # VALIDATE_YAML: false
-         # FILTER_REGEX_EXCLUDE: .github/.*
+          FILTER_REGEX_EXCLUDE: .github/.*
         
