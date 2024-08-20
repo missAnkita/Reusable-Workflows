@@ -3,10 +3,6 @@ name: Deploy Angular Application
 on:
   workflow_call:
     inputs:
-      environment:
-        description: 'The environment to deploy to'
-        required: true
-        type: string
       version:
         description: 'The version to deploy'
         required: false
@@ -35,7 +31,7 @@ jobs:
 
       - name: Deploy
         run: |
-          echo "Deploying Angular application to ${{ inputs.environment }} environment"
+       
           echo "Version: ${{ inputs.version }}"
           # Add your Angular deployment commands here
      #   env:
