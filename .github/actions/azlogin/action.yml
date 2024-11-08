@@ -1,0 +1,25 @@
+name: azure login
+description: 'Login to azure'
+inputs:
+   client-id:
+    description: 'client id to login to Azure'
+    required: true
+    type: string
+  tenant-id:
+    description: 'tenant id to login to Azure'
+    required: true
+    type: string
+  subscription-id:
+    description: 'subscription id to login to Azure'
+    required: true
+    type: string
+runs:
+ using: 'composite'
+ steps:
+   - name: Azure login
+     uses: azure/login@v2
+     with:
+        client-id: ${{ inputs.client-id }}
+        tenant-id: ${{ inputs.tenant-id }}
+        subscription-id: ${{ inputs.subscription-id }}
+        enable-AzPSSession: true

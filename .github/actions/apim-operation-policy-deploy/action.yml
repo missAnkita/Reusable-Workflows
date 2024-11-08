@@ -1,0 +1,36 @@
+name: 'API Policy Deploy'
+description: 'Apply policy to API'
+inputs:
+  azure-resource-group:
+     description: 'resource group of the azure resource'
+     required: false
+     type: string
+  apim-resource-name:
+     description: 'service name of the APIM'
+     required: false
+     type: string
+  api-id:
+     description: 'unique identifier for the API'
+     required: false
+     type: string 
+  policy-source-file:
+     description: 'policy source file to apply policies to API'
+     required: true
+     type: string 
+  operation-id:
+     description: 'apim operation to apply policy to'
+     required: false
+     type: string
+
+runs:
+ using: 'composite'
+ steps:
+  - name: Update operation level API policy
+    uses: azure/powershell@v1
+    with:
+        azPSVersion: latest
+        inlineScript: |
+          $PolicyPath = "${{ inputs.policy-source-file }}"
+          $OperationId = "${{ inputs.operation-id }}"
+          $apimContext = New-AzApiManagementContext -ResourceGroupName "${{ inputs.azure-resource-group }}" -ServiceName "${{ inputs.apim-resource-name }}"
+          Set-AzApiManagementPolicy -Context $apimContext -ApiId "${{ inputs.api-id }}" -OperationId $OperationId -PolicyFilePath $PolicyPath -Format "application/vnd.ms-azure-apim.policy.raw+xml"

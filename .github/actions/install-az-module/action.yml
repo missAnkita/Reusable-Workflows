@@ -1,0 +1,9 @@
+name: 'Install Az Module'
+description: 'To Install Az Module'
+runs:
+ using: 'composite'
+ steps:
+  - name: Install Az Module
+    shell: pwsh
+    run: |
+      Install-Module -Name Az.Accounts -Scope CurrentUser -Repository PSGallery -force

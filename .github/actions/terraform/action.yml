@@ -1,0 +1,8 @@
+name: Terraform deploy action
+description: 'Terraform init,plan and apply action'
+runs:
+  using: 'composite'
+  steps:
+    - name: Terraform init,plan and apply
+      run: echo "Terraform init,plan and apply message!" 
+      shell: bash

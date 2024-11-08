@@ -1,0 +1,8 @@
+name: security scan action
+description: 'This is a sceurity scan action'
+runs:
+  using: 'composite'
+  steps:
+    - name: Security scan is in progress
+      run: echo "This is just security scan message!" 
+      shell: bash

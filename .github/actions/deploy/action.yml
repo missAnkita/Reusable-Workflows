@@ -16,6 +16,7 @@ runs:
  steps:
     - name: Deploy Angular app
       if: ${{ inputs.framework == 'angular' }}
+      #break tis further to call another composite action to call deploy-angular action
       run: |
         echo "Deploying Angular app..."
         # Add commands to build and deploy Angular app here

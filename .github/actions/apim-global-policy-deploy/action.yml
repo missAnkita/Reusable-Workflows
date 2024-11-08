@@ -1,0 +1,27 @@
+name: 'Global Policy Deploy'
+description: 'To deploy global policy to APIM'
+inputs:
+  azure-resource-group:
+     description: 'resource group of the azure resource'
+     required: false
+     type: string
+  apim-resource-name:
+     description: 'service name of the APIM'
+     required: false
+     type: string
+  policy-source-file:
+     description: 'policy source file to apply policies to API'
+     required: true
+     type: string 
+runs:
+ using: 'composite'
+ steps:
+
+  - name: Update APIM global policy
+    uses: azure/powershell@v1
+    with:
+        azPSVersion: latest
+        inlineScript: |
+          $PolicyPath = "${{ inputs.policy-source-file }}"
+          $apimContext = New-AzApiManagementContext -ResourceGroupName "${{ inputs.azure-resource-group }}" -ServiceName "${{ inputs.apim-resource-name }}"
+          Set-AzApiManagementPolicy -Context $apimContext -PolicyFilePath $PolicyPath -Format "application/vnd.ms-azure-apim.policy.raw+xml"

@@ -1,0 +1,33 @@
+name: 'setup framework'
+description: 'setting up the framework for the source code build'
+inputs:
+  framework-type: 
+    description: ' type of framework used to build the code '
+    required: false
+    type: string
+  framework-version:
+    description: 'framework version that is required'
+    required: true
+    type: string
+    
+runs:
+ using: 'composite'
+ steps:
+   - name: Setup .NET Core
+     if: ${{ inputs.framework-type == 'dotnet' || inputs.framework-type == 'blazor' }}
+     uses: actions/setup-dotnet@v4
+     with:
+       dotnet-version: ${{ inputs.framework-version }}
+
+   - name: Setup Angular
+     if: ${{ inputs.framework-type == 'angular' }}
+     uses: actions/setup-node@v4
+     with:
+          node-version: ${{ inputs.framework-version }}
+
+   #TESTING FOR FLASK APP 
+   - name: Setup Python
+     if: ${{ inputs.framework-type == 'python' }}
+     uses: actions/setup-python@v2
+     with:
+          python-version: ${{ inputs.framework-version }}

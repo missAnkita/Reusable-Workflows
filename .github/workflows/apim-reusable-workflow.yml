@@ -1,0 +1,104 @@
+name: Reusable workflow to deploy Azure APIM policies
+on:
+    workflow_call:
+        secrets:
+            client-id:
+            subscription-id:
+            tenant-id:
+        inputs: 
+            az-resource-group: 
+                description: 'Name of azure resource group'
+                required: false
+                type: string
+            apim-resource-name:
+                description: 'service name of the APIM'
+                required: false
+                type: string
+            api-id:
+                description: 'unique identifier for the API'
+                required: false
+                type: string 
+            policy-source-file:
+                description: 'policy source file to apply policies to API'
+                required: true
+                type: string 
+            operation-id:
+                description: 'apim operation to apply policy to'
+                required: false
+                type: string
+            policy-scope:
+                description: 'apim policy scope to apply policy to'
+                required: true
+                type: string
+            workspace-id:
+                description: 'specify the workspace ID'
+                required: false
+                type: string
+            product-id:
+                description: 'specify the product ID'
+                required: false
+                type: string 
+
+jobs:
+    apim-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: checkout 
+              uses: missAnkita/Reusable-Workflows/.github/actions/checkout@feature/test-multilingual
+            
+            - name: login to azure
+              uses: missAnkita/Reusable-Workflows/.github/actions/azlogin@feature/test-multilingual
+              with:
+                client-id: ${{ secrets.client-id }}
+                subscription-id: ${{ secrets.subscription-id }}
+                tenant-id: ${{ secrets.tenant-id }}
+
+            - name: Install AZ module
+              uses: missAnkita/Reusable-Workflows/.github/actions/install-az-module@feature/test-multilingual
+             
+            - name: Apply Global Policies
+              if: ${{ inputs.policy-scope == 'global-level' }}
+              uses: missAnkita/Reusable-Workflows/.github/actions/apim-global-policy-deploy@feature/test-multilingual
+              with:
+                az-resource-group: ${{ inputs.az-resource-group }}
+                apim-resource-name: ${{ inputs.apim-resource-name }}
+                policy-source-file: ${{ inputs.policy-source-file }}
+            
+            - name: Apply Workspace Policies
+              if: ${{ inputs.policy-scope == 'workspace-level' }}
+              uses: missAnkita/Reusable-Workflows/.github/actions/apim-workspace-policy-deploy@feature/test-multilingual
+              with:
+                az-resource-group: ${{ inputs.az-resource-group }}
+                apim-resource-name: ${{ inputs.apim-resource-name }}
+                policy-source-file: ${{ inputs.policy-source-file }}
+                workspace-id: ${{ inputs.workspace-id }}
+
+            - name: Apply Product Level Policies
+              if: ${{ inputs.policy-scope == 'product-level' }}
+              uses: missAnkita/Reusable-Workflows/.github/actions/apim-product-policy-deploy@feature/test-multilingual
+              with:
+                az-resource-group: ${{ inputs.az-resource-group }}
+                apim-resource-name: ${{ inputs.apim-resource-name }}
+                policy-source-file: ${{ inputs.policy-source-file }}
+                product-id: ${{ inputs.product-id }}
+    
+            
+            - name: Apply API Level Policies
+              if: ${{ inputs.policy-scope == 'api-level' }}
+              uses: missAnkita/Reusable-Workflows/.github/actions/apim-api-policy-deploy@feature/test-multilingual
+              with:
+                az-resource-group: ${{ inputs.az-resource-group }}
+                apim-resource-name: ${{ inputs.apim-resource-name }}
+                policy-source-file: ${{ inputs.policy-source-file }}
+                api-id: ${{ inputs.api-id }}
+
+            - name: Apply Operation Level Policies
+              if: ${{ inputs.policy-scope == 'api-level' }}
+              uses: missAnkita/Reusable-Workflows/.github/actions/apim-operation-policy-deploy@feature/test-multilingual
+              with:
+                az-resource-group: ${{ inputs.az-resource-group }}
+                apim-resource-name: ${{ inputs.apim-resource-name }}
+                policy-source-file: ${{ inputs.policy-source-file }}
+                operation-id: ${{ inputs.operation-id }}
+
+                

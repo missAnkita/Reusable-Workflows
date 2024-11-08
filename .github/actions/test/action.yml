@@ -1,0 +1,33 @@
+name: test action
+description: Test the source code
+inputs:
+  framework-type: 
+    description: ' type of framework used to build the code '
+    required: false
+    type: string
+  working-directory:
+    description: 'working directory to test'
+    required: true
+    type: string
+  file-name-to-test:
+    description: 'specify specific sln/proj to test'
+    required: true
+    type: string
+runs:
+  using: 'composite'       
+  steps:
+    - name: test with dotnet
+      if: ${{ inputs.framework-type == 'dotnet' || inputs.framework-type == 'blazor' }}
+      run: dotnet test ${{ inputs.file-name-to-test }} --no-build --verbosity normal
+      shell: bash
+      #working-directory: ${{ inputs.working-directory }}
+
+    - name: test with angular
+      if: ${{ inputs.framework-type == 'angular' }}
+      run: npm test -- --watch=false --browsers=ChromeHeadlessNoSandbox
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+
+    - name: test with python
+      if: ${{ inputs.framework-type == 'python' }}
+      run:  python ${{ inputs.file-name-to-test }}

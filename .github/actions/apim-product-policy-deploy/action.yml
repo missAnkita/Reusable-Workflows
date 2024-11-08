@@ -1,0 +1,32 @@
+name: 'Product Policy Deploy'
+description: 'Deploy product specific policy to APIM'
+inputs:
+  azure-resource-group:
+     description: 'resource group of the azure resource'
+     required: false
+     type: string
+  apim-resource-name:
+     description: 'service name of the APIM'
+     required: false
+     type: string
+  policy-source-file:
+     description: 'policy source file to apply policies to API'
+     required: true
+     type: string 
+  product-id:
+     description: 'specify the product ID'
+     required: false
+     type: string
+runs:
+ using: 'composite'
+ steps:
+
+  - name: Update APIM Product policy
+    uses: azure/powershell@v1
+    with:
+        azPSVersion: latest
+        inlineScript: |
+          $PolicyPath = "${{ inputs.policy-source-file }}"
+          $ProductId = "${{ inputs.product-id }}"
+          $apimContext = New-AzApiManagementContext -ResourceGroupName "${{ inputs.azure-resource-group }}" -ServiceName "${{ inputs.apim-resource-name }}"
+          Set-AzApiManagementPolicy -Context $apimContext -ProductId $ProductId -PolicyFilePath $PolicyPath -Format "application/vnd.ms-azure-apim.policy.raw+xml"
