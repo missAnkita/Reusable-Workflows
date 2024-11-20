@@ -27,7 +27,14 @@ on:
         description: 'specifies the files to be excluded from linting'
         required: false
         type: string
-    
+      validate-jscpd: 
+        description: 'Enable/disable jscpd from linting'
+        required: false
+        type: string
+      validate-checkov: 
+        description: 'Enable/disable checkov from linting'
+        required: false
+        type: string
 jobs:
   lint:
     name: Lint dotnet app
@@ -49,11 +56,11 @@ jobs:
       - name: Super Linter Code Base
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@feature/test-sprinter
         env:
-       #  VALIDATE_ALL_CODEBASE: false
               VALIDATE_ALL_CODEBASE: false
               FILTER_REGEX_INCLUDE: ${{ inputs.filter-regex-include }}
               FILTER_REGEX_EXCLUDE: ${{ inputs.filter-regex-exclude}}   
-              VALIDATE_JSCPD: false   
+              VALIDATE_JSCPD: ${{ inputs.validate-jscpd }}   
+              VALIDATE_CHECKOV: ${{ inputs.validate-checkov }}
               MULTI_STATUS: false
          # FILTER_REGEX_INCLUDE: .*\.(cs|js|sh)$
          # MULTI_STATUS: false
