@@ -18,6 +18,15 @@ on:
         description: Run tests
         type: boolean
         default: true
+
+      filter-regex-include:
+        description: 'specifies the files to be included in the linting'
+        required: false
+        type: string
+      filter-regex-exclude:
+        description: 'specifies the files to be excluded from linting'
+        required: false
+        type: string
     
 jobs:
   lint:
@@ -41,10 +50,15 @@ jobs:
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@feature/test-sprinter
         env:
        #  VALIDATE_ALL_CODEBASE: false
-          FILTER_REGEX_INCLUDE: .*\.(cs|js|sh)$
-          MULTI_STATUS: false
+              VALIDATE_ALL_CODEBASE: false
+              FILTER_REGEX_INCLUDE: ${{ inputs.filter-regex-include }}
+              FILTER_REGEX_EXCLUDE: ${{ inputs.filter-regex-exclude}}   
+              VALIDATE_JSCPD: false   
+              MULTI_STATUS: false
+         # FILTER_REGEX_INCLUDE: .*\.(cs|js|sh)$
+         # MULTI_STATUS: false
           # VALIDATE_YAML: false
-          FILTER_REGEX_EXCLUDE: .*\.github/workflows/caller\-sl\.yml, .*\.(html)$
+         # FILTER_REGEX_EXCLUDE: .*\.github/workflows/caller\-sl\.yml, .*\.(html)$
           #FILTER_REGEX_EXCLUDE: ^(?!.*\.github/).*
 
         
