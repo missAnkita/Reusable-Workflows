@@ -56,7 +56,7 @@ jobs:
       - name: Super Linter Code Base
         uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@feature/test-sprinter
         env:
-              VALIDATE_ALL_CODEBASE: false
+              #VALIDATE_ALL_CODEBASE: false
               FILTER_REGEX_INCLUDE: ${{ inputs.filter-regex-include }}
               FILTER_REGEX_EXCLUDE: ${{ inputs.filter-regex-exclude}}   
               VALIDATE_JSCPD: ${{ inputs.validate-jscpd }}   
