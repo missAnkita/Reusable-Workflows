@@ -1,12 +1,13 @@
-
-name: Caller WF to Build Docker Image
-
-on:
-  workflow_dispatch:
+name: 'Build dotnet application image'
+on: 
+ push: 
+  branches: ["main"]
+   
+permissions:
+    contents: read
 
 jobs:
-  caller-workflow:
-      name: Build .Net app
+  build-image-caller:
       uses: missAnkita/Reusable-Workflows/.github/workflows/CD.yml@main
       with:
         working-directory: '.'
@@ -15,7 +16,10 @@ jobs:
         container-repository: 'ankita-ecr01'
         image-tag: 'image1'
         deployment-file: 'k8s/deploydotneteks.yml'
-      secrets: inherit
+      secrets: 
+        aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     
             
