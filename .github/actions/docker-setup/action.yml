@@ -1,0 +1,27 @@
+name: "Setup Docker"
+description: "Installs Docker and ensures Docker is running"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Docker
+      shell: bash
+      run: |
+        if ! command -v docker &> /dev/null
+        then
+          echo "Docker not found, installing..."
+          sudo apt-get update
+          sudo apt-get install -y docker.io
+          sudo systemctl start docker
+          sudo systemctl enable docker
+        else
+          echo "Docker is already installed."
+          sudo systemctl start docker
+          sudo systemctl enable docker
+        fi  
+
+    - name: Verify Docker setup
+      shell: bash
+      run: |
+        docker --version
+        docker info

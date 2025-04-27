@@ -1,0 +1,152 @@
+name: 'reusable workflow to deploy to eks'
+on: 
+  workflow_call:
+    secrets:
+      aws-account-id:
+    inputs:   
+      working-directory:
+         description: 'working directory for App code'
+         required: false
+         type: string
+      artifact-name:
+         description: 'artifact name'
+         required: true
+         type: string
+      aws-region:
+        description: 'The AWS region to use'
+        required: false
+        default: 'us-west-2'
+        type: string
+      container-repository: 
+        description: 'The name of the container repository required to log into ECR'
+        required: true
+        type: string
+      image-tag: 
+        description: 'The Docker tag name to use for the docker image (e.g. latest)'
+        required: true
+        type: string
+      deployment-file:
+        description: 'path of the deployment.yml file'
+        required: true
+        type: string
+    #   cluster-name:
+    #     description: 'The name of the EKS cluster'
+    #     required: false
+    #     type: string
+    #   deploy-runner-type:
+    #     description: 'self-hosted or ubuntu-latest'
+    #     required: true
+    #     type: string 
+    #     default: 'ubuntu-latest'
+    #   skip-deploy-job:
+    #     description: 'skips the deploy job'
+    #     required: true
+    #     type: boolean 
+    #     default: false
+    #   skip-build-job:
+    #     description: 'skips the app build'
+    #     required: false
+    #     type: boolean 
+    #     default: false
+    #   package-source-org:
+    #     description: 'Github organization where package needs to be pushed'
+    #     required: true
+    #     type: string
+    #   target-file:
+    #     description: 'target file to overwrite with corresponding environment secrets'
+    #     required: false
+    #     type: string
+    #   deploy-environment:
+    #     description: 'deployment environment'
+    #     required: true
+    #     type: string
+
+jobs:  
+#   Build:  
+#     runs-on: ubuntu-latest
+#     environment: ${{ inputs.deploy-environment }}
+#     if: ${{ inputs.skip-build-job == false }}
+#     steps:
+#      - name: checkout 
+#        uses: actions/checkout@v4
+
+#      - name: Build Project
+#        uses: missAnkita/Reusable-Workflows/.github/actions/Build@main           
+ 
+#      - name: Publish
+#        run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
+       
+#      - name: Upload a Build Artifact
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: ${{ inputs.artifact-name }}
+#          path: ${{ inputs.project-folder }}/wdrop/**
+#          if-no-files-found: error
+
+  Docker-Build: 
+     runs-on: ubuntu-latest
+     steps: 
+        - name: checkout 
+          uses: actions/checkout@v4
+
+        - name: Download Artifact 
+          uses: actions/download-artifact@v4
+          with: 
+            name: ${{ inputs.artifact-name }}
+
+        - name: Login to AWS 
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: us-west-2
+
+        - name: Set up Docker
+          uses: missAnkita/Reusable-Workflows/.github/actions/docker-setup@main
+
+        - name: Login to Amazon ECR
+          uses: missAnkita/Reusable-Workflows/.github/actions/ecr-login@main
+          with: 
+            aws-region: ${{inputs.aws-region}}
+            aws-account-id: ${{ secrets.aws-account-id }}            
+
+        - name: Build Docker Image
+          uses: missAnkita/Reusable-Workflows/.github/actions/container-build@main
+          with: 
+            working-directory: ${{ inputs.working-directory }}
+            container-repository: ${{ inputs.container-repository }}
+            image-tag: ${{ inputs.image-tag }}
+
+        - name: Push Docker Image to ECR
+          uses: missAnkita/Reusable-Workflows/.github/actions/ecr-push@main
+          with: 
+            aws-region: ${{ inputs.aws-region }}
+            aws-account-id: ${{ secrets.aws-account-id }}
+            container-repository: ${{ inputs.container-repository }}
+            image-tag: ${{ inputs.image-tag }}
+
+#   Deploy-to-eks: 
+#      needs: ["Docker-Build"]
+#      runs-on: ubuntu-latest
+#      steps: 
+#         - name: checkout 
+#           uses: actions/checkout@v4
+
+#         - name: Login to AWS 
+#           uses: aws-actions/configure-aws-credentials@v1
+#           with:
+#             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#             aws-region: us-west-2
+
+        # - name: Create k8s configmap
+        #   uses: BHGitOps/action-create-k8s-configmaps@feature/dso-ankita
+        #   with: 
+        #     config-file: ${{ inputs.config-file }}
+
+        # - name: Deploy to eks
+        #   uses: missAnkita/Reusable-Workflows/.github/actions/eks-deploy@main
+        #   with: 
+        #     deployment-file: ${{ inputs.deployment-file }}
+        #     aws-region: ${{ inputs.aws-region }}
+        #     cluster-name: ${{ inputs.cluster-name }}

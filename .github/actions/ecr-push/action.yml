@@ -1,0 +1,33 @@
+name: 'Push image to container registry (ecr)'
+description: 'Container image push to container registry'
+inputs:
+  aws-region:
+    description: 'AWS Region where ecr is located'
+    required: false
+    type: string
+  aws-account-id:
+    description: 'AWS account id where container registry is located'
+    required: false
+    type: string
+  container-repository:
+    description: 'Container repository name'
+    required: true
+    type: string
+  image-tag:
+    description: 'Image tag name to use for the container image (e.g.latest)'
+    required: true
+    type: string
+    default: latest
+runs:
+ using: 'composite'
+ steps:
+    - name: Push to ECR 
+      shell: bash
+      run: |
+         docker tag ${{ inputs.container-repository }}:${{ inputs.image-tag }} ${{ inputs.aws-account-id }}.dkr.ecr.${{inputs.aws-region}}.amazonaws.com/${{ inputs.container-repository }}:${{ inputs.image-tag }}
+         docker push ${{ inputs.aws-account-id }}.dkr.ecr.${{ inputs.aws-region }}.amazonaws.com/${{ inputs.container-repository }}:${{ inputs.image-tag }}
+       
+    - name: Delete docker images to free up runner space
+      shell: bash
+      run: |
+         docker system prune -af

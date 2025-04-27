@@ -14,6 +14,7 @@ jobs:
         project-folder: .
         artifact-name: 'artifacts'
         file-name-to-restore: './dotnetapp.sln'
+      secrets: inherit
 
     
             

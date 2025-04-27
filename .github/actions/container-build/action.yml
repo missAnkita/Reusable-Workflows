@@ -1,0 +1,36 @@
+name: docker build action
+description: 'build the dockerfile to create image'
+inputs:
+  working-directory:
+    description: 'working directory to create build'
+    required: false
+    type: string
+  container-repository: 
+    description: 'specify the repository name'
+    required: false
+    type: string
+  image-tag: 
+    description: 'specify the name/tag of the image'
+    required: false
+    type: string
+  docker-file-path: 
+    description: 'specify the path of dockerfile'
+    required: false
+    type: string
+  docker-build-context: 
+    description: 'specify the path of build context'
+    required: false
+    type: string
+runs:
+  using: 'composite'       
+  steps:     
+    # - name: Build dockerfile with custom path
+    #   if: ${{ inputs.docker-file-path != '' }}
+    #   run: docker build -f ${{ inputs.docker-file-path }} -t ${{ inputs.container-repository }}:${{ inputs.image-tag }} ${{ inputs.docker-build-context }}
+    #   shell: bash
+
+    - name: Build dockerfile
+      #if: ${{ inputs.docker-file-path == '' }}
+      run: docker buildx build -t ${{ inputs.container-repository }}:${{ inputs.image-tag }} .
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}

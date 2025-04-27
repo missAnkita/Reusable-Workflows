@@ -1,0 +1,20 @@
+name: 'Container Registry Login (ecr)'
+description: 'Action for Container Registry Login'
+inputs:
+  aws-region:
+    description: 'AWS Region where ecr is located'
+    required: false
+    type: string
+    default: us-west-2
+  aws-account-id:
+    description: 'AWS account id where container registry is located'
+    required: false
+    type: string
+runs:
+ using: 'composite'
+ steps:
+    - name: Log into AWS ECR
+      run: |
+        echo "Logging into AWS ECR registry..."
+        aws ecr get-login-password --region ${{ inputs.aws-region }} | docker login --username AWS --password-stdin ${{ inputs.aws-account-id }}.dkr.ecr.${{ inputs.aws-region }}.amazonaws.com
+      shell: bash
