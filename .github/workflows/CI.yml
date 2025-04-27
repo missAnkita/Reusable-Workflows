@@ -13,7 +13,10 @@ on:
         description: Version of dotnet to use
         type: string
         default: 8.0.x
-      
+      file-name-to-restore:
+          description: 'specify a specific filename, examples sln/csproj files to restore. Useful when more than one exist in a single directory'
+          required: false
+          type: string
       project-folder:
         description: The folder containing the project to build
         type: string
