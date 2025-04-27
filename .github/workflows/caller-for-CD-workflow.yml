@@ -1,7 +1,8 @@
 name: 'Build dotnet application image'
 on: 
- push: 
-  branches: ["main"]
+  workflow_dispatch:
+#  push: 
+#   branches: ["main"]
    
 permissions:
     contents: read
@@ -12,6 +13,7 @@ jobs:
       with:
         working-directory: '.'
         artifact-name: 'artifacts'
+        #build-artifacts: './k8s'
         aws-region: 'us-west-2'
         container-repository: 'ankita-ecr01'
         image-tag: 'image1'

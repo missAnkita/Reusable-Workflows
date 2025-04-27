@@ -13,6 +13,7 @@ jobs:
         run-tests: false
         project-folder: .
         artifact-name: 'artifacts'
+        build-artifacts: './k8s'
         file-name-to-restore: './dotnetapp.sln'
       secrets: inherit
 
