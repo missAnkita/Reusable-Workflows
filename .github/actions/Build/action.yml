@@ -1,3 +1,14 @@
+name: restore dependencies action
+description: restore dependencies action for building the source code
+inputs:
+  dotnet-version:
+    description: Version of dotnet to use
+    type: string
+    default: 8.0.x
+  file-name-to-restore:
+    description: 'specify a specific filename, examples sln/csproj files to restore. Useful when more than one exist in a single directory'
+    required: false
+    type: string
 runs:
   using: "composite"
 
@@ -9,7 +20,7 @@ runs:
           
       - name: Restore dependencies
         shell: bash
-        run: dotnet restore
+        run: dotnet restore ${{ inputs.file-name-to-restore }}
         
       - name: Build
         shell: bash

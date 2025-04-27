@@ -12,7 +12,8 @@ jobs:
         runs-on: ubuntu-latest
         run-tests: false
         project-folder: .
-        artifact-name: drop-ubuntu
+        artifact-name: 'artifacts'
+        file-name-to-restore: './dotnetapp.sln'
 
     
             
