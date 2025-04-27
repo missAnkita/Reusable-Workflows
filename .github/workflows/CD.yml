@@ -31,6 +31,15 @@ on:
         description: 'path of the deployment.yml file'
         required: true
         type: string
+      publish-configuration:
+        description: Configuration to publish
+        type: string
+        default: Release
+      build-artifacts:
+        description: 'A file, directory or wildcard pattern that describes what to upload'
+        required: false
+        type: string
+    
     #   cluster-name:
     #     description: 'The name of the EKS cluster'
     #     required: false
@@ -64,28 +73,39 @@ on:
     #     type: string
 
 jobs:  
-#   Build:  
-#     runs-on: ubuntu-latest
-#     environment: ${{ inputs.deploy-environment }}
-#     if: ${{ inputs.skip-build-job == false }}
-#     steps:
-#      - name: checkout 
-#        uses: actions/checkout@v4
+  app-build:
+    name: Build dotnet app
+    
+    runs-on: ${{ inputs.runs-on }}
+    defaults:
+      run:
+        working-directory: ${{ inputs.project-folder }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+          
+      - name: Build Project
+        uses: missAnkita/Reusable-Workflows/.github/actions/Build@main
+   
+      - name: Test Project
+        uses: missAnkita/Reusable-Workflows/.github/actions/test@main
+      
+      - name: Run Application
+        uses: missAnkita/Reusable-Workflows/.github/actions/run@main
+        
+      - name: Publish
+        run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
+        
+      - name: Upload a Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ inputs.artifact-name }}
+          path: ${{ inputs.build-artifacts }}
+          if-no-files-found: error
 
-#      - name: Build Project
-#        uses: missAnkita/Reusable-Workflows/.github/actions/Build@main           
- 
-#      - name: Publish
-#        run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
-       
-#      - name: Upload a Build Artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: ${{ inputs.artifact-name }}
-#          path: ${{ inputs.project-folder }}/wdrop/**
-#          if-no-files-found: error
-
-  Docker-Build: 
+  docker-Build: 
+     needs: ['app-build']
      runs-on: ubuntu-latest
      steps: 
         - name: checkout 
