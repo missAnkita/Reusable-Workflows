@@ -9,7 +9,6 @@ jobs:
       name: Build .Net app
       uses: missAnkita/Reusable-Workflows/.github/workflows/CD.yml@main
       with:
-        runs-on: ubuntu-latest
         working-directory: '.'
         artifact-name: 'artifacts'
         aws-region: 'us-west-2'
