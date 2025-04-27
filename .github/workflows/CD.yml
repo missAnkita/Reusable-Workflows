@@ -74,12 +74,11 @@ on:
 
 jobs:  
   app-build:
-    name: Build dotnet app
-    
-    runs-on: ${{ inputs.runs-on }}
+    name: Build dotnet app   
+    runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ${{ inputs.project-folder }}
+        working-directory: ${{ inputs.working-directory }}
     
     steps:
       - name: Checkout code
