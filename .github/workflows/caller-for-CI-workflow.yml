@@ -1,5 +1,5 @@
 
-name: Caller WF For .Net App
+name: Caller CI WF For .Net App
 
 on:
   workflow_dispatch:
