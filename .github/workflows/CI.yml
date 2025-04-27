@@ -1,5 +1,5 @@
 
-name: RU WF for .NET
+name: RU WF for CI of .NET application
 
 on:
   workflow_call:
@@ -46,11 +46,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Super Linter Code Base
-        uses: missAnkita/Reusable-Workflows/.github/actions/Super-Linter@main
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           
       - name: Build Project
         uses: missAnkita/Reusable-Workflows/.github/actions/Build@main
@@ -65,7 +60,6 @@ jobs:
         run: dotnet publish -c ${{ inputs.publish-configuration }} -o wdrop
         
       - name: Upload a Build Artifact
-        #uses: actions/upload-artifact@v2.2.2
         uses: actions/upload-artifact@v4
         with:
           name: ${{ inputs.artifact-name }}

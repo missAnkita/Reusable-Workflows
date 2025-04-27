@@ -8,19 +8,19 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\vaish\\.nuget\\packages\\": {}
+    "C:\\Users\\avishwan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\vaish\\OneDrive\\Desktop\\MyLearnings\\Projects\\Workflows\\test2superlinter\\Reusable-Workflows\\dotnetapp.csproj",
+      "projectUniqueName": "C:\\Users\\avishwan\\OneDrive - Capgemini\\Documents\\Ankita\\GitHub Actions Training\\Day 2\\Reusable-Workflows\\dotnetapp.csproj",
       "projectName": "dotnetapp",
-      "projectPath": "C:\\Users\\vaish\\OneDrive\\Desktop\\MyLearnings\\Projects\\Workflows\\test2superlinter\\Reusable-Workflows\\dotnetapp.csproj",
-      "packagesPath": "C:\\Users\\vaish\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\vaish\\OneDrive\\Desktop\\MyLearnings\\Projects\\Workflows\\test2superlinter\\Reusable-Workflows\\obj\\",
+      "projectPath": "C:\\Users\\avishwan\\OneDrive - Capgemini\\Documents\\Ankita\\GitHub Actions Training\\Day 2\\Reusable-Workflows\\dotnetapp.csproj",
+      "packagesPath": "C:\\Users\\avishwan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\avishwan\\OneDrive - Capgemini\\Documents\\Ankita\\GitHub Actions Training\\Day 2\\Reusable-Workflows\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\vaish\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\avishwan\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netcoreapp8.0"
@@ -64,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.408/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

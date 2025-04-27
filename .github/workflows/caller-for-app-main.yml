@@ -7,7 +7,7 @@ on:
 jobs:
   caller-workflow:
       name: Build .Net app
-      uses: missAnkita/Reusable-Workflows/.github/workflows/app-main.yml@main
+      uses: missAnkita/Reusable-Workflows/.github/workflows/CI.yml@main
       with:
         runs-on: ubuntu-latest
         run-tests: false
