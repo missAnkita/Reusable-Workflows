@@ -2,7 +2,7 @@ name: 'Build dotnet application image'
 on: 
   workflow_dispatch:
   push: 
-      branches: ["main"]
+      branches: ["main1"]
    
 permissions:
     id-token: write

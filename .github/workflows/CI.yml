@@ -53,6 +53,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Get VM details
+        uses: missAnkita/action-vm-details@main
           
       - name: Build Project
         uses: missAnkita/Reusable-Workflows/.github/actions/Build@main
