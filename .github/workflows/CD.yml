@@ -1,10 +1,10 @@
 name: 'reusable workflow to deploy to eks'
 on: 
   workflow_call:
-    # secrets:
-    #   aws-account-id:
-    #   aws-access-key-id:
-    #   aws-secret-access-key:
+    secrets:
+      aws-account-id:
+      aws-access-key-id:
+      aws-secret-access-key:
     inputs:   
       working-directory:
          description: 'working directory for App code'
