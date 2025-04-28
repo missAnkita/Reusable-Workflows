@@ -115,13 +115,6 @@ jobs:
           with: 
             name: ${{ inputs.artifact-name }}
 
-        
-        - name: Debug AWS Credentials
-          shell: bash
-          run: |
-            echo "AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}"
-            echo "AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}"
-
         - name: Login to AWS 
           uses: aws-actions/configure-aws-credentials@v4
           with:
