@@ -3,7 +3,8 @@ FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS runtime
 WORKDIR /app
 
 # Copy prebuilt Blazor application from GitHub Actions workflow
-COPY ./output /app   
+# COPY ./output /app
+COPY ./wdrop /app   
 
 # Expose port 80
 EXPOSE 80
