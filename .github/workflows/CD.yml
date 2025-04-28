@@ -136,7 +136,7 @@ jobs:
           uses: missAnkita/Reusable-Workflows/.github/actions/ecr-login@main
           with: 
             aws-region: ${{inputs.aws-region}}
-            aws-account-id: ${{ secrets.aws-account-id }}            
+            aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}            
 
         - name: Build Docker Image
           uses: missAnkita/Reusable-Workflows/.github/actions/container-build@main
@@ -149,7 +149,7 @@ jobs:
           uses: missAnkita/Reusable-Workflows/.github/actions/ecr-push@main
           with: 
             aws-region: ${{ inputs.aws-region }}
-            aws-account-id: ${{ secrets.aws-account-id }}
+            aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
             container-repository: ${{ inputs.container-repository }}
             image-tag: ${{ inputs.image-tag }}
 
