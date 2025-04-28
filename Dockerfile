@@ -4,7 +4,7 @@ WORKDIR /app
 
 # Copy prebuilt Blazor application from GitHub Actions workflow
 # COPY ./output /app
-COPY ./wdrop /app   
+COPY . /app   
 
 # Expose port 80
 EXPOSE 80
