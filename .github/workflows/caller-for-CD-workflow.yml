@@ -19,10 +19,11 @@ jobs:
         container-repository: 'ankita-ecr01'
         image-tag: 'image1'
         deployment-file: 'k8s/deploydotneteks.yml'
-      secrets: 
-        aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      secrets: inherit
+      # secrets: 
+      #   aws-account-id: ${{ secrets.AWS_ACCOUNT_ID }}
+      #   aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #   aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     
             
