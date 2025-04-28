@@ -1,10 +1,10 @@
 name: 'reusable workflow to deploy to eks'
 on: 
   workflow_call:
-    secrets:
-      aws-account-id:
-      aws-access-key-id:
-      aws-secret-access-key:
+    # secrets:
+    #   aws-account-id:
+    #   aws-access-key-id:
+    #   aws-secret-access-key:
     inputs:   
       working-directory:
          description: 'working directory for App code'
@@ -116,7 +116,7 @@ jobs:
             name: ${{ inputs.artifact-name }}
 
         - name: Login to AWS 
-          uses: aws-actions/configure-aws-credentials@v1
+          uses: aws-actions/configure-aws-credentials@v4
           with:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
