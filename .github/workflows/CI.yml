@@ -55,7 +55,8 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Get VM details
-        uses: missAnkita/action-vm-details@main
+        #uses: missAnkita/action-vm-details@main
+        uses: missAnkita/action-vm-details@v1
           
       - name: Build Project
         uses: missAnkita/Reusable-Workflows/.github/actions/Build@main
